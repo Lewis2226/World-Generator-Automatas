@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D;
+using UnityEngine.UIElements;
 
 public class LevelGenerator : MonoBehaviour
 {
@@ -11,10 +13,13 @@ public class LevelGenerator : MonoBehaviour
     private GameObject[,] objectsOnLevel;
     private float[,] totalObjects;
     int[] elementoscerca = new int[5];
+    public Sprite a;
 
 
     void Start()
     {
+        totalObjects= new float [worldSizeX,worldSizeY];
+        CreateBlocks();
         PerlinNoise();
     }
 
@@ -39,22 +44,32 @@ public class LevelGenerator : MonoBehaviour
                 if (perlinValue <= 0.2f) //Bloque de agua
                 {
                     Debug.Log($"Esto es agua, ya que su valor es: {perlinValue}");
+                    objectsOnLevel[x,y].GetComponent<SpriteRenderer>().color = prefabsBlocks[0].GetComponent<SpriteRenderer>().color;
+                    objectsOnLevel[x,y].GetComponent<SpriteRenderer>().sprite = prefabsBlocks[0].GetComponent<SpriteRenderer>().sprite;
                 }
                 else if (perlinValue <= .4f) //Bloque de esto
                 {
                     Debug.Log($"Esto es pasto, ya que su valor es: {perlinValue}");
+                    objectsOnLevel[x, y].GetComponent<SpriteRenderer>().color = prefabsBlocks[1].GetComponent<SpriteRenderer>().color;
+                    objectsOnLevel[x, y].GetComponent<SpriteRenderer>().sprite = prefabsBlocks[1].GetComponent<SpriteRenderer>().sprite;
                 }
                 else if (perlinValue <= .6f) //Bloque de roca
                 {
                     Debug.Log($"Esto es roca, ya que su valor es: {perlinValue}");
+                    objectsOnLevel[x, y].GetComponent<SpriteRenderer>().color = prefabsBlocks[2].GetComponent<SpriteRenderer>().color;
+                    objectsOnLevel[x, y].GetComponent<SpriteRenderer>().sprite = prefabsBlocks[2].GetComponent<SpriteRenderer>().sprite;
                 }
                 else if (perlinValue <= .8f) //Bloque de mineral
                 {
                     Debug.Log($"Esto es mineral, ya que su valor es: {perlinValue}");
+                    objectsOnLevel[x, y].GetComponent<SpriteRenderer>().color = prefabsBlocks[3].GetComponent<SpriteRenderer>().color;
+                    objectsOnLevel[x, y].GetComponent<SpriteRenderer>().sprite = prefabsBlocks[3].GetComponent<SpriteRenderer>().sprite;
                 }
                 else  //Bloque de vacio
                 {
                     Debug.Log($"Esto es vacio, ya que su valor es: {perlinValue}");
+                    objectsOnLevel[x, y].GetComponent<SpriteRenderer>().color = prefabsBlocks[4].GetComponent<SpriteRenderer>().color;
+                    objectsOnLevel[x, y].GetComponent<SpriteRenderer>().sprite = prefabsBlocks[4].GetComponent<SpriteRenderer>().sprite;
                 }
 
                 totalObjects[x, y] = perlinValue;
@@ -132,5 +147,19 @@ public class LevelGenerator : MonoBehaviour
     void ShowLevel()
     {
 
+    }
+
+    void CreateBlocks()
+    {
+        objectsOnLevel = new GameObject[worldSizeX, worldSizeY];
+        for (int i = 0; i < worldSizeX; i++)
+        {
+            for (int j = 0; j < worldSizeY; j++)
+            {
+                Vector3 position = new Vector3(i, j, 0);
+                GameObject block = Instantiate(prefabsBlocks[4], position, Quaternion.identity);
+                objectsOnLevel[i, j] = block;
+            }
+        }
     }
 }
