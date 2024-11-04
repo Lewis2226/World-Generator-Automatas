@@ -8,17 +8,18 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private int worldSizeX;
     [SerializeField] private int worldSizeY;
     [SerializeField] private int scale;
+    [SerializeField] private float timeWait;
+    [SerializeField] private int maxGeneration;
     private GameObject[,] objectsOnLevel;
     private float[,] totalObjects;
     int[] elementoscerca = new int[5];
-    int numbertoGenerate = 0;
 
     void Start()
     {
       totalObjects= new float [worldSizeX,worldSizeY];
       CreateBlocks();
       PerlinNoise();
-      StartCoroutine(ChangeLevel());
+      StartCoroutine(StartSimulation(maxGeneration));
     }
 
     void PerlinNoise()
@@ -65,14 +66,14 @@ public class LevelGenerator : MonoBehaviour
     {
      for (int i = -1; i < 1; i++)
      {
-      for (int j = -1; i < 1; i++)
+      for (int j = -1; j < 1; j++)
       {
           if (i == 0 && j == 0)
               continue;
         int Posx = x + i;
         int Posy = y + j;
         
-        if( Posx >= 0 && Posx <= worldSizeX &&  Posy >= 0 && Posy <= worldSizeY)
+        if( Posx >= 0 && Posx < worldSizeX &&  Posy >= 0 && Posy < worldSizeY)
         {
          if(totalObjects[Posx, Posy] <= .2f)//Verfica si hay agua cerca
          {
@@ -102,7 +103,9 @@ public class LevelGenerator : MonoBehaviour
 
     void ApplyRules(float noisePerlin, int x, int y)
     {
-     if(noisePerlin <= 0.2f && elementoscerca[0] > 2)//Si el bloque es de agua
+     WhatisNext(x, y);
+
+     if (noisePerlin <= 0.2f && elementoscerca[0] > 2)//Si el bloque es de agua
      {
       objectsOnLevel[x, y].GetComponent<SpriteRenderer>().color = prefabsBlocks[0].GetComponent<SpriteRenderer>().color;
       objectsOnLevel[x, y].GetComponent<SpriteRenderer>().sprite = prefabsBlocks[0].GetComponent<SpriteRenderer>().sprite;
@@ -126,14 +129,6 @@ public class LevelGenerator : MonoBehaviour
 
     void ShowLevel()
     {
-     for(int x = 0;  x < worldSizeX ; x++)
-     {
-      for (int y = 0; y < worldSizeY; y++)
-      {
-       WhatisNext(x,y);
-      }
-     }
-
      for (int x = 0; x < worldSizeX; x++)
      {
       for (int y = 0; y < worldSizeY; y++)
@@ -157,14 +152,15 @@ public class LevelGenerator : MonoBehaviour
      }
     }
 
-    IEnumerator ChangeLevel()
+    IEnumerator StartSimulation(int maxExecutions)
     {
-     while(numbertoGenerate < 5)
+     int executionCount = 0;
+     
+     while (executionCount < maxExecutions)
      {
       ShowLevel();
-      numbertoGenerate++;
-      Debug.Log(numbertoGenerate);
+      executionCount++;
+      yield return new WaitForSeconds(timeWait);
      }
-     yield return null;
     }
 }

@@ -267,7 +267,9 @@ MonoBehaviour:
   - {fileID: 8269875813265560204, guid: bcf4491cff03bf5469b1ad9b2a245803, type: 3}
   worldSizeX: 10
   worldSizeY: 10
-  scale: 5
+  scale: 4
+  timeWait: 0.5
+  maxGeneration: 5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
