@@ -74,19 +74,19 @@ public class LevelGenerator : MonoBehaviour
         
         if( Posx >= 0 && Posx <= worldSizeX &&  Posy >= 0 && Posy <= worldSizeY)
         {
-         if(totalObjects[x, y] <= .2f)//Verfica si hay agua cerca
+         if(totalObjects[Posx, Posy] <= .2f)//Verfica si hay agua cerca
          {
            elementoscerca[0]++;
          }
-         else if(totalObjects[x, y] <= .4f)//Verfica si hay pasto cerca
+         else if(totalObjects[Posx, Posy] <= .4f)//Verfica si hay pasto cerca
          {
            elementoscerca[1]++;
          }
-         else if(totalObjects[x, y] <= .6f)//Verifica si hay roca cerca
+         else if(totalObjects[Posx, Posy] <= .6f)//Verifica si hay roca cerca
          {
            elementoscerca[2]++;
          }
-         else if(totalObjects[x,y] <= .8f)//Verfica si hay mineral cerca
+         else if(totalObjects[Posx, Posy] <= .8f)//Verfica si hay mineral cerca
          {
            elementoscerca[3]++;
          }
@@ -102,12 +102,7 @@ public class LevelGenerator : MonoBehaviour
 
     void ApplyRules(float noisePerlin, int x, int y)
     {
-     if (elementoscerca[4] <= 4)//Ve si hay más de 4 bloques de vacio
-     {
-      objectsOnLevel[x, y].GetComponent<SpriteRenderer>().color = prefabsBlocks[4].GetComponent<SpriteRenderer>().color;
-      objectsOnLevel[x, y].GetComponent<SpriteRenderer>().sprite = prefabsBlocks[4].GetComponent<SpriteRenderer>().sprite;
-     }
-     else if(noisePerlin <= 0.2f && elementoscerca[0] > 2)//Si el bloque es de agua
+     if(noisePerlin <= 0.2f && elementoscerca[0] > 2)//Si el bloque es de agua
      {
       objectsOnLevel[x, y].GetComponent<SpriteRenderer>().color = prefabsBlocks[0].GetComponent<SpriteRenderer>().color;
       objectsOnLevel[x, y].GetComponent<SpriteRenderer>().sprite = prefabsBlocks[0].GetComponent<SpriteRenderer>().sprite;
