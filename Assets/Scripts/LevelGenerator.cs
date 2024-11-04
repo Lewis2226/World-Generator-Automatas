@@ -122,16 +122,11 @@ public class LevelGenerator : MonoBehaviour
       objectsOnLevel[x, y].GetComponent<SpriteRenderer>().color = prefabsBlocks[3].GetComponent<SpriteRenderer>().color;
       objectsOnLevel[x, y].GetComponent<SpriteRenderer>().sprite = prefabsBlocks[3].GetComponent<SpriteRenderer>().sprite;
      }
-     else//Si el bloque es de vacio
-     {
-      objectsOnLevel[x, y].GetComponent<SpriteRenderer>().color = prefabsBlocks[4].GetComponent<SpriteRenderer>().color;
-      objectsOnLevel[x, y].GetComponent<SpriteRenderer>().sprite = prefabsBlocks[4].GetComponent<SpriteRenderer>().sprite;
-     }
     }
 
     void ShowLevel()
     {
-     for(int x = 0; worldSizeX > 0; x++)
+     for(int x = 0;  x < worldSizeX ; x++)
      {
       for (int y = 0; y < worldSizeY; y++)
       {
@@ -139,7 +134,7 @@ public class LevelGenerator : MonoBehaviour
       }
      }
 
-     for (int x = 0; worldSizeX > 0; x++)
+     for (int x = 0; x < worldSizeX; x++)
      {
       for (int y = 0; y < worldSizeY; y++)
       {
@@ -168,7 +163,8 @@ public class LevelGenerator : MonoBehaviour
      {
       ShowLevel();
       numbertoGenerate++;
-      yield return null;
+      Debug.Log(numbertoGenerate);
      }
+     yield return null;
     }
 }

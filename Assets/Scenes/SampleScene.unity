@@ -268,7 +268,6 @@ MonoBehaviour:
   worldSizeX: 10
   worldSizeY: 10
   scale: 5
-  a: {fileID: 21300000, guid: 8d60dbe46af62be4098c7f4522000d83, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
