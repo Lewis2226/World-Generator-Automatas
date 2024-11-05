@@ -10,8 +10,11 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private int worldSizeY;
     [SerializeField] private float timeWait;
     [SerializeField] private int maxGeneration;
+    [SerializeField] Transform startPos;
+    [SerializeField] Transform endPos;
     private GameObject[,] objectsOnLevel;
     private int[,] totalObjects;
+    private int currentCost;
 
     void Start()
     {
@@ -149,8 +152,4 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
-    void AStar()
-    {
-
-    }
 }
