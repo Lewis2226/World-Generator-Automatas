@@ -265,6 +265,7 @@ MonoBehaviour:
   - {fileID: 8269875813265560204, guid: 179deb1d96c87cd4eaa4dbed9a7d45c3, type: 3}
   - {fileID: 8269875813265560204, guid: c333d2a9edbcdfd46914c033dddd36de, type: 3}
   - {fileID: 8269875813265560204, guid: bcf4491cff03bf5469b1ad9b2a245803, type: 3}
+  prefabsWay: {fileID: 8269875813265560204, guid: acf09ad04a7685f49bf180f0b67d0391, type: 3}
   worldSizeX: 10
   worldSizeY: 10
   timeWait: 1

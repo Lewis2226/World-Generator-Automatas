@@ -5,6 +5,7 @@ using UnityEngine;
 public class LevelGenerator : MonoBehaviour
 {
     [SerializeField] private GameObject[] prefabsBlocks;
+    [SerializeField] private GameObject prefabsWay;
     [SerializeField] private int worldSizeX;
     [SerializeField] private int worldSizeY;
     [SerializeField] private float timeWait;
@@ -20,10 +21,6 @@ public class LevelGenerator : MonoBehaviour
         if (maxGeneration > 0)
         {
             StartCoroutine(StartSimulation(maxGeneration));
-        }
-        else
-        {
-            Debug.LogWarning("maxGeneration debe ser mayor que cero");
         }
     }
 
@@ -78,7 +75,7 @@ public class LevelGenerator : MonoBehaviour
     {
         int[] elementoscerca = WhatisNext(x, y);
 
-        if (blocknum == 0 && elementoscerca[0] >= 1)//Revisa la regla en  Agua
+        if (blocknum == 0 && elementoscerca[0] >= 1)//Revisa la regla en agua
         {
             objectsOnLevel[x, y].GetComponent<SpriteRenderer>().color = prefabsBlocks[0].GetComponent<SpriteRenderer>().color;
             objectsOnLevel[x, y].GetComponent<SpriteRenderer>().sprite = prefabsBlocks[0].GetComponent<SpriteRenderer>().sprite;
@@ -150,5 +147,10 @@ public class LevelGenerator : MonoBehaviour
         {
             StopAllCoroutines();
         }
+    }
+
+    void AStar()
+    {
+
     }
 }
