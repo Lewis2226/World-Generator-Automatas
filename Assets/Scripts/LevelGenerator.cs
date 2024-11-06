@@ -14,7 +14,7 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] Transform endPos;
     private GameObject[,] objectsOnLevel;
     private int[,] totalObjects;
-    private int currentCost;
+    
 
     void Start()
     {
