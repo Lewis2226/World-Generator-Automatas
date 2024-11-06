@@ -7,7 +7,8 @@ public class Node
 {
     public float goatCost;
     public float manhattanDistance;
-    float finalCost => goatCost +  manhattanDistance;
+    public int type; 
+    public float finalCost => goatCost +  manhattanDistance;
     public Node parent;
     public Vector2Int position;
 
@@ -16,6 +17,11 @@ public class Node
         position = _position;
         goatCost = gCost;
         manhattanDistance = _manhattanDistance;
+
     }
+
+    
+
+   
 
 }
