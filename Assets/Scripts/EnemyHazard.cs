@@ -10,7 +10,7 @@ public class EnemyHazard : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            collision.SendMessage("HaveDamage", damege);
+            collision.SendMessage("AddDamage", damege);
         }
     }
 }

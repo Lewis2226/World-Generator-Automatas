@@ -8,6 +8,7 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private GameObject[] prefabsBlocks;
     [SerializeField] private GameObject prefabsWay;
     [SerializeField] private GameObject prefabsTrap;
+    [SerializeField] private GameObject player;
     [SerializeField] private int worldSizeX;
     [SerializeField] private int worldSizeY;
     [SerializeField] private float timeWait;
@@ -158,6 +159,7 @@ public class LevelGenerator : MonoBehaviour
         if (executionCount == maxExecutions)
         {
             ShowRoute();
+            player.SetActive(true);
             StopAllCoroutines();
         }
     }
@@ -173,7 +175,10 @@ public class LevelGenerator : MonoBehaviour
 
             if(random == 0 && node.position.x != 0)
             {
-              Instantiate(prefabsTrap, PositionTrap, Quaternion.identity);
+                if (node.position.x != 9)
+                {
+                    Instantiate(prefabsTrap, PositionTrap, Quaternion.identity);
+                }
             }
         }
     }

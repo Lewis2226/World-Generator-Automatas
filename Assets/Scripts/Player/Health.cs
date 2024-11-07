@@ -4,80 +4,54 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    public int totalhp = 1;
-    private int hp;
+    public int totalHealth = 3;
+    private int health;
+    public float backforce = 1.5f;
+
     private SpriteRenderer _renderer;
-    public Transform respawnPoint;
-    private float maxRespawnTime = 0.25f;
-    public float respawnTime;
-    public bool dead;
-    private float maxWaitTime = 0.25f;
-    public float waitTime;
-    public PlayerController playerController;
-    public GameObject gameOver;
-    
-    void Start()
+    //public RectTransform heartsUI;
+    private float heartsSize = 16.5f;
+    public GameObject GamooverScren;
+
+
+    private void Awake()
     {
         _renderer = GetComponent<SpriteRenderer>();
-        hp = totalhp; 
-        dead = false;
-        respawnTime = maxRespawnTime;
-        waitTime = maxWaitTime;
+
     }
 
-    private void FixedUpdate()
+    void Start()
     {
+        health = totalHealth;
+    }
 
-      if (dead)
-      {
-        waitTime -= Time.deltaTime;
-        if(waitTime<= 0)
+    public void AddDamage(int amount)
+    {
+        health = health - amount;
+
+        // Visual Feedback
+        StartCoroutine("VisualFeedback");
+
+        // Game  Over
+        if (health <= 0)
         {
-          respawnTime -= Time.deltaTime;
-          Dead(false);
-        } 
-            
-      }
+            health = 0;
+            Debug.Log("Has muerto");
+            GamooverScren.SetActive(true);
+            gameObject.SetActive(false);
+        }
+        //heartsUI.sizeDelta = new Vector2(heartsSize * health, heartsSize);
+        Debug.Log("Player got damaged. His current health is " + health);
     }
 
-    public void HaveDamage(int damage)
-    {
-      hp -= damage;
-      playerController.enabled = false;
-     
-
-      StartCoroutine("EfectoVisual");
-     
-     
-      if (hp <= 0)
-      {
-          hp = 0;
-          dead = true;
-      }
-    }
-
-    private IEnumerator EfectoVisual()
+    
+    private IEnumerator VisualFeedback()
     {
         _renderer.color = Color.red;
+
         yield return new WaitForSeconds(0.1f);
+
         _renderer.color = Color.white;
     }
-
-    public void Dead(bool isDead)
-    {
-      gameOver.SetActive(true);
-      transform.position = respawnPoint.position;
-      transform.localScale = new Vector3(1, 1, 1);
-      waitTime = maxWaitTime;
-      GetComponent<BoxCollider2D>().enabled = !isDead;
-      GetComponent<SpriteRenderer>().enabled = !isDead;
-      
-    } 
-
-    public void Revival() 
-    {
-        dead = false;
-        hp = totalhp;
-        playerController.enabled = true;
-    }
 }
+
