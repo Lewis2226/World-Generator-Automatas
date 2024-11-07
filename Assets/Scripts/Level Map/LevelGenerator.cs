@@ -7,6 +7,7 @@ public class LevelGenerator : MonoBehaviour
 {
     [SerializeField] private GameObject[] prefabsBlocks;
     [SerializeField] private GameObject prefabsWay;
+    [SerializeField] private GameObject prefabsTrap;
     [SerializeField] private int worldSizeX;
     [SerializeField] private int worldSizeY;
     [SerializeField] private float timeWait;
@@ -165,8 +166,15 @@ public class LevelGenerator : MonoBehaviour
     {
         foreach (Node node in ruteNode)
         {
+            int random = Random.Range(0, 2);
             Vector3 vectorPosition = new Vector3(node.position.x, node.position.y, 0);
+            Vector3 PositionTrap = new Vector3(node.position.x, node.position.y +1 , 0);
             Instantiate(prefabsWay, vectorPosition, Quaternion.identity);
+
+            if(random == 0 && node.position.x != 0)
+            {
+              Instantiate(prefabsTrap, PositionTrap, Quaternion.identity);
+            }
         }
     }
 }
