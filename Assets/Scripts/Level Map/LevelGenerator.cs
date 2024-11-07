@@ -175,7 +175,7 @@ public class LevelGenerator : MonoBehaviour
 
             if(random == 0 && node.position.x != 0)
             {
-                if (node.position.x != 9)
+                if (node.position.x != worldSizeX-1)
                 {
                     Instantiate(prefabsTrap, PositionTrap, Quaternion.identity);
                 }
