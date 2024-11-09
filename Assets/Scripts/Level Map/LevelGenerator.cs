@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static Unity.IO.LowLevel.Unsafe.AsyncReadManagerMetrics;
 
 public class LevelGenerator : MonoBehaviour
 {
     [SerializeField] private GameObject[] prefabsBlocks;
     [SerializeField] private GameObject prefabsWay;
     [SerializeField] private GameObject prefabsTrap;
+    [SerializeField] private GameObject prefabsFlag;
     [SerializeField] private GameObject player;
     [SerializeField] private int worldSizeX;
     [SerializeField] private int worldSizeY;
@@ -160,6 +163,9 @@ public class LevelGenerator : MonoBehaviour
         {
             ShowRoute();
             player.SetActive(true);
+            Vector3 flagPos = new Vector3(endPos.position.x, endPos.position.y + 1, 0);
+            Instantiate(prefabsFlag, flagPos, Quaternion.identity);
+            Debug.Log("Ya hay meta");
             StopAllCoroutines();
         }
     }
@@ -168,18 +174,19 @@ public class LevelGenerator : MonoBehaviour
     {
         foreach (Node node in ruteNode)
         {
-            int random = Random.Range(0, 2);
+            int random = Random.Range(0, 4);
             Vector3 vectorPosition = new Vector3(node.position.x, node.position.y, 0);
             Vector3 PositionTrap = new Vector3(node.position.x, node.position.y +1 , 0);
             Instantiate(prefabsWay, vectorPosition, Quaternion.identity);
-
-            if(random == 0 && node.position.x != 0)
+            if(random == 1 && node.position.x != 0)
             {
                 if (node.position.x != worldSizeX-1)
                 {
                     Instantiate(prefabsTrap, PositionTrap, Quaternion.identity);
                 }
             }
+
+            
         }
     }
 }
