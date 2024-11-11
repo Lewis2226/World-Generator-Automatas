@@ -165,7 +165,6 @@ public class LevelGenerator : MonoBehaviour
             player.SetActive(true);
             Vector3 flagPos = new Vector3(endPos.position.x, endPos.position.y + 1, 0);
             Instantiate(prefabsFlag, flagPos, Quaternion.identity);
-            Debug.Log("Ya hay meta");
             StopAllCoroutines();
         }
     }
