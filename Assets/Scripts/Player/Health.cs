@@ -1,15 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
     public int totalHealth = 3;
     private int health;
     public float backforce = 1.5f;
+    public PlayerController playerController;
 
     private SpriteRenderer _renderer;
-    //public RectTransform heartsUI;
+    public RectTransform heartsUI;
     private float heartsSize = 16.5f;
     public GameObject GamooverScren;
 
@@ -36,12 +38,11 @@ public class Health : MonoBehaviour
         if (health <= 0)
         {
             health = 0;
-            Debug.Log("Has muerto");
             GamooverScren.SetActive(true);
+            playerController.enabled = false;
             gameObject.SetActive(false);
         }
-        //heartsUI.sizeDelta = new Vector2(heartsSize * health, heartsSize);
-        Debug.Log("Player got damaged. His current health is " + health);
+        heartsUI.sizeDelta = new Vector2(heartsSize * health, heartsSize);
     }
 
     
